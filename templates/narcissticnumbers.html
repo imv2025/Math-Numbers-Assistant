@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Narcisstic Numbers
+{% endblock %}
+
+{% block main %}
+    <h4>All narcisstic numbers up to your selected value</h4>
+
+    <body>
+        <p>Spoiler Alert: Narcisstic | Armstrong => sum of its own digits each raised to the power of the number of digits.</p>
+        <p>153: consists of 3 digits -> each digit to the power of 3: 1, 125, 27 -> sum result itself => narcisstic </p>
+        <label for="limit">Enter a number:</label>
+        <input autofocus type="number" id="limit">
+        <button id="show" onclick="showNarcisstics()">Show narcisstics</button>
+        <p></p>
+        <p id="count"></p>
+        <p id="narcissticText"></p>
+        <output id="result"></output>
+        <script>
+        // Check if a number is narcisstic
+            function isNarcisstic(n) {
+                if (n < 0)
+                    return false;
+            // convert number to string, then to array of digits
+                const digits = String(n).split("").map(Number);
+                const exp = digits.length;
+            // sum each digit raised to the power of exp
+                let sum = 0;
+                for (const digit of digits) {
+                    sum += Math.pow(digit, exp);
+                }
+            // compare sum to original number
+                return sum === n;
+            }
+
+        // Generate list of narcisstic up to num
+            function narcissticList(n) {
+                const listNarcisstic = [];
+                if (n < 0)
+                    return listNarcisstic;
+                for (let i = 0; i <= n; i++) {
+                    if (isNarcisstic(i)) listNarcisstic.push(i);
+                }
+                return listNarcisstic;
+            }
+
+
+            const input = document.getElementById("limit");
+            const result = document.getElementById("result");
+            const count = document.getElementById("count");
+            const button = document.getElementById("show");
+
+            button.addEventListener("click", showNarcisstics);
+            input.addEventListener("keydown", (event) => {
+                if (event.key === "Enter")
+                    showNarcisstics();
+            });
+
+
+        // Display narcisstics in the <output>
+            function showNarcisstics() {
+                const num = parseInt(document.getElementById("limit").value);
+                const resultEl = document.getElementById("result");
+                const textEl = document.getElementById("narcissticText");
+
+                if (Number.isNaN(num)) {
+                    textEl.textContent = "Please enter a valid number.";
+                    resultEl.textContent = "";
+                    return;
+                }
+                const narcisstics = narcissticList(num);
+                let sum = 0;
+                for (let a of narcisstics) {
+                    sum += a;
+                }
+
+                resultEl.value = narcisstics.join(", ");
+                if (num < 0) {
+                    count.textContent = "Mathematically, a negative input cannot be narcissistic.";
+                    textEl.textContent = "Please enter a non-negative value.";
+                } else if (narcisstics.length === 1) {
+                // exactly one found (includes num = 0, since 0 is narcissistic)
+                    count.textContent = `There is 1 narcissistic number up to ${num} and its sum is ${sum}.`;
+                    textEl.textContent = `Narcissistic numbers up to ${num}: `;
+                } else if (narcisstics.length > 1) {
+                // more than one found
+                    count.textContent = `There are ${narcisstics.length} narcissistic numbers up to ${num} and their sum is ${sum}.`;
+                    textEl.textContent = `Narcissistic numbers up to ${num}: `;
+                } else {
+                // none found for non‑negative input
+                    count.textContent = `No narcissistic numbers found up to ${num}.`;
+                    textEl.textContent = "";
+                }
+            };
+        </script>
+    </body>
+{% endblock %}

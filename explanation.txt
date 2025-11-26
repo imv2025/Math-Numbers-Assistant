@@ -1,0 +1,112 @@
+project: Math&Numbers Assistant
+name: Irene von Ah
+GitHub username: imv2025
+edX username: IreneIsabel2022
+Location: Switzerland
+Developed: 26 Nov2025
+
+
+About this project
+Math&Numbers Assistant is an interactive learning platform dedicated to mathematical core concepts,
+where students can test what they learned. There is an explanation, and the possibility to reinforce
+that knowledge. To use this learning app, students need to register for later authentication.
+
+
+Purpose
+To engage others in my learning passion: Maths and Numbers. These concepts are the core of many
+developments.
+
+
+Educational Value
+The platform is not only a calculator but also a learning companion. It encourages students to explore
+mathematical definitions, validate their inputs, and reflect on explanations. This active learning approach
+reinforces knowledge and builds confidence.
+
+
+Motivation
+I chose to focus on numbers because they are the foundation of engineering, science, and everyday life.
+By sharing my passion through this app, I hope to inspire learners worldwide to see the beauty in mathematics.
+
+
+Blueprints
+Learn Web App: Controller app.py; Templates: 12 dynamic HTMLs; Static: CSS for style;
+3 txt: requirements, explanation, schema; 1 sqlite db; 1 demo video
+
+
+Keywords
+CS50, Web App, Flask, HTML, CSS, JavaScript, Jinja, Bootstrap, SQL, DataBase, Python, Math, Numbers, Learn
+
+
+Requirements
+cs50, Flask, Flask-Session, pytz, requests
+
+
+Installation
+To run the project, clone the repository, create a virtual environment, install the requirements, and run flask.
+This simple process ensures that anyone can reproduce the environment and test the app as intended.
+
+
+Authentication
+Students need to create an account to access to this content.
+
+
+Tech
+Register, LogIn, LogOut
+For this process POST method via HTTP, ensuring password security rules.
+
+
+Database
+myproject.db includes 3 tables: users, unique index, and default sequence.
+
+
+Controller
+The platform controller app.py ensures dynamic routing navigation mainly via render_template.
+
+
+Appearance
+The Bootstrap style of the site is located in a separate CSS file, which standardizes
+the look of the site. A toggle theme is implemented for customized background light-dark mode.
+The site is also device responsive.
+
+
+Maths Concepts Core
+
+Index gives the opportunity to briefly get concept definitions, via radio buttons, in order to focus
+on the selected concept individually.
+
+Headers allow navigation specifically to practical functionalities: via calculator and number types.
+-Calculator with basic operators: addition, subtraction, multiplication, division.
+-Number types: abundant, even, narcissistic, prime, and pronic.
+
+To support the student, each concept includes a short explanation:
+- Abundant numbers: integers for which the sum of their proper positive divisors is greater than the number itself.
+- Even numbers: integers divisible by 2 without remainder.
+- Narcissistic numbers: non‑negative integer n such that the sum of its digits each raised to the power of
+  the number of digits equals n.
+- Prime numbers: integers greater than 1 that have exactly two distinct positive divisors: 1 and themselves.
+- Pronic numbers: numbers formed by the product of two consecutive integers, n(n+1).
+
+For each of these types, the code inside the app decides if those numbers are valid to be what they attempt to be.
+If not, it returns an explanation including hints for the next attempt. If valid, it returns: the amount of
+available numbers up to this input, their sum, and the list of all of them at once.
+
+
+Me: Developer Info
+Here I introduce myself to my students as a Swiss Latin polyglot Electronics Engineer who likes
+to learn and travel, mother of two daughters who increase my passion for caring for others.
+
+
+Faced challenges
+To develop a project from scratch requires unwrapping your real passion, otherwise it is hardly possible,
+because the effort must be worthwhile and must overcome the time and energy invested. I needed equal time to
+consider, plan, and decide what and how to do it, as for implementing it. Clear statements reduce the time
+of driving yourself into circles and allow you to focus in the chosen direction. Core here is to clarify
+what skills you have to achieve your goal, and what you need to accomplish it within the required time:
+Resource Management.
+
+Next features
+Expand the available selection of numbers (currently only 5 of them), but there are many more interesting numbers.
+Implement the concept dictionary via OpenAI GPT and propose correlations of the chosen numbers.
+
+Demo video: https://youtu.be/xuWB_Oc7gKs
+3‑minute walkthrough showing the main features of Math&Numbers app running via flask run and browser demo.

@@ -1,0 +1,110 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Pronic Numbers
+{% endblock %}
+
+{% block main %}
+    <h4>All pronic numbers up to your selected value</h4>
+
+    <body>
+        <p>Spoiler Alert: Pronic => Product of two consecutive numbers</p>
+        <p>12 is pronic because its consecutive digits product (3 * 4)</p>
+        <label for="limit">Enter a number:</label>
+        <input autofocus type="number" id="limit">
+        <button id="show" onClick="showPronics()">Show pronics</button>
+        <p></p>
+        <p id="count"></p>
+        <p id="pronicText"></p>
+        <output id="result"></output>
+        <div id="explanation">
+            <p></p>
+            <p>To decide if a number is pronic or not: go through all numbers from 1 to n and check if</p>
+            <p>the product of the number times it's succesor is equal to n, or even more efficient: </p>
+            <p>=> ake the square root of the parameter</p>
+            <p>=> round the result to the next integer</p>
+            <p>=> multiply this result with it's successor</p>
+            <p>=> check if the result is equal to the input</p>
+        </div>
+        <script>
+        // Check if a number is pronic
+            function isPronic(p) {
+                if (p < 0)
+                    return false;
+                for (let i = 0; i <= p; i++) {
+                    if (i * (i + 1) === p) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            function isPronic2(p) {
+                if (p < 0)
+                    return false;
+            // take integer part of sqrt(p)
+                let i = Math.floor(p ** 0.5);
+                return i * (i + 1) === p;
+            }
+
+
+        // Generate list of pronics up to num
+            function pronicList(num) {
+                const listPronics = [];
+                const limit = Math.abs(num);
+                for (let i = 0; i <= limit; i++) {
+                    if (isPronic(i)) listPronics.push(i);
+                }
+                return listPronics;
+            }
+
+            const input = document.getElementById("limit");
+            const result = document.getElementById("result");
+            const count = document.getElementById("count");
+            const button = document.getElementById("show");
+
+            button.addEventListener("click", showPronics);
+
+            input.addEventListener("keydown", (event) => {
+                if (event.key === "Enter")
+                    showPronics();
+            });
+
+        // Display pronics in the <output>
+            function showPronics() {
+                const numInput = parseInt(document.getElementById("limit").value) || 0;
+                const num = parseInt(numInput, 10) || 0;
+                const resultEL = document.getElementById("result");
+                const textEl = document.getElementById("pronicText");
+                const pronics = pronicList(num);
+                let sum = 0;
+                for (let n of pronics) {
+                    sum += n;
+                }
+                resultEL.value = pronics.join(", ");
+                if (num < 0) {
+                // negative input
+                    textEl.textContent = `Pronic numbers are always non-negative, so here are the ones up to ${num}.`;
+                    count.textContent = "";
+                    document.getElementById("explanation").style.display = "block";
+                } else if (pronics.length > 0) {
+                // positive input
+                    textEl.textContent = `Pronic numbers up to ${num}: `;
+                    count.textContent = `Found ${pronics.length} pronic numbers up to ${num}.`;
+                    document.getElementById("explanation").style.display = "none";
+                } else {
+                // no pronics at all
+                    textEl.textContent = "No pronic numbers found.";
+                    count.textContent = "";
+                    document.getElementById("explanation").style.display = "none";
+                }
+
+                if (pronics.length > 1) {
+                    count.textContent = `There are ${pronics.length} pronic numbers up to ${num} and its sum is ${sum}.`;
+                } else
+                count.textContent = `There is ${pronics.length} pronic number up to ${num}.`;
+
+            }
+        </script>
+    </body>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Even Numbers
+{% endblock %}
+
+{% block main %}
+    <h4>All even numbers up to your selected value</h4>
+
+    <body>
+        <p>Spoiler Alert: Even => numbers that are divisible by 2 with no remainder</p>
+        <label for="limit">Enter a number:</label>
+        <input autofocus type="number" id="limit">
+        <button id="show" onclick="showEvens()">Show evens</button>
+        <p></p>
+        <p id="count"></p>
+        <p id="evenText"></p>
+        <output id="result"></output>
+        <script>
+        // Generate list of evens up to num
+            function evenList(num) {
+                const listEvens = [];
+                if (num >= 0) {
+                // positive case: count up
+                    for (let i = 0; i <= num; i += 2) {
+                        listEvens.push(i);
+                    }
+                } else {
+                // negative case: count down
+                    for (let i = 0; i >= num; i -= 2) {
+                        listEvens.push(i);
+                    }
+                }
+                return listEvens;
+            }
+
+            const input = document.getElementById("limit");
+            const result = document.getElementById("result");
+            const count = document.getElementById("count");
+            const button = document.getElementById("show");
+
+            button.addEventListener("click", showEvens);
+            input.addEventListener("keydown", (event) => {
+                if (event.key === "Enter")
+                    showEvens();
+            });
+
+
+        // Display evens in the <output>
+            function showEvens() {
+                const num = parseInt(document.getElementById("limit").value) || 0;
+                const resultEL = document.getElementById("result");
+                const textEl = document.getElementById("evenText");
+                const evens = evenList(num);
+                let sum = 0;
+                for (let n of evens) {
+                    sum += n;
+                }
+                resultEL.value = evens.join(", ");
+
+                if (evens.length > 0) {
+                    count.textContent = `There are ${evens.length} even numbers up to ${num} and its sum is ${sum}.`;
+                    textEl.textContent = `Even numbers up to ${num}: `;
+                } else {
+                    textEl.textContent = "No even numbers found.";
+                    count.textContent = `There is ${evens.length} even numbers up to ${num}.`;
+                };
+            };
+        </script>
+    </body>
+{% endblock %}

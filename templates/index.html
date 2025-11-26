@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Definitions
+{% endblock %}
+
+
+{% block main %}
+    <h4>As your personal 📚Math & Numbers Assistant</h4>
+    <h4>I prepared some briefly explanations related to maths</h4>
+    <h4>Select a topic of your interest:</h4>
+    <p>Next, you can test those features in action on this learn plattform</p>
+    <div class="radio-group" id="radioGroup"></div>
+    <p class="result" id="output">Description: </p>
+    <script>
+        const Dict = {
+            Math: "Study of patterns, relationships, quantities, and structures using logical reasoning and symbolic respresentation.",
+            Numbers: "Abstract symbols used to represent quantities, order and value in mathemathical contexts.",
+            Calculator: "Device or software tool that performs mathematical operations and computations.",
+            Abundant: "Integers, for which the sum of all proper divisors is greater than the number itself.",
+            Even: "Integers divisible by 2 without remainder.",
+            Narcisstic: "non‑negative integer 𝑛 such that the sum of its digits, each raised to the power of the number of digits, equals 𝑛.",
+            Primes: "Integers greater than 1 that have exactly two distinct positive divisors: 1 and themselves.",
+            Pronic: "Numbers formed by the product of two consecutive integers, n(n+1)",
+            Pi: "Irrational mathemathical constant representing the ratio of a circle's circunference to its diameter, approximately equal to 3.14159"
+        }
+        const radioGroup = document.getElementById("radioGroup");
+        const output = document.getElementById("output");
+
+    // create radio buttons for each key
+        Object.keys(Dict).forEach((key, index) => {
+            const label = document.createElement("label");
+            const radio = document.createElement("input");
+            radio.type = "radio";
+            radio.name = "dictChoice";
+            radio.value = key;
+
+        // First selected as default
+            if (index === 0) radio.checked = true;
+
+            label.appendChild(radio);
+            label.appendChild(document.createTextNode(" " + key));
+            radioGroup.appendChild(label);
+        });
+
+        function updateOutput() {
+            const selected = document.querySelector('input[name="dictChoice"]:checked');
+            if (selected) {
+                output.textContent = selected.value + " -> " + Dict[selected.value];
+            }
+        }
+
+
+    // Listening changes
+        radioGroup.addEventListener("change", updateOutput);
+
+    // Initialize with first value
+        updateOutput();
+    </script>
+{% endblock %}

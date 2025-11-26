@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Calculator
+{% endblock %}
+
+{% block main %}
+    <h4>For a seleted operator, Calculator will show you a result for any two numbers</h4>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-light">
+            <tr>
+                <th>A</th>
+                <th>Operator</th>
+                <th>B</th>
+                <th></th>
+                <th>Result</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <form>
+                    <td><input autofocus type="number" id="a"></td>
+                    <td>
+                        <select id="op">
+                            <option value="+">+</option>
+                            <option value="-">-</option>
+                            <option value="*">×</option>
+                            <option value="/">÷</option>
+                        </select>
+                    </td>
+                    <td><input type="number" id="b"></td>
+                    <td>=</td>
+                    <td><output id="result">0</output></td>
+                </form>
+            </tr>
+            <script>
+                const a = document.getElementById("a");
+                const b = document.getElementById("b");
+                const op = document.getElementById("op");
+                const result = document.getElementById("result");
+
+                function update() {
+                    const valA = parseFloat(a.value) || 0;
+                    const valB = parseFloat(b.value) || 0;
+                    let res = 0;
+
+                    switch (op.value) {
+                        case "+":
+                            res = valA + valB;
+                            break;
+                        case "-":
+                            res = valA - valB;
+                            break;
+                        case "*":
+                            res = valA * valB;
+                            break;
+                        case "/":
+                            res = valB !== 0 ? valA / valB : "∞";
+                            break;
+                    }
+
+                    result.value = res;
+                }
+                a.addEventListener("input", update);
+                b.addEventListener("input", update);
+                op.addEventListener("change", update);
+                update(); // run once at start
+            </script>
+        </tbody>
+    </table>
+{% endblock %}

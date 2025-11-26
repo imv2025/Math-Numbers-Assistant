@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Prime Numbers
+{% endblock %}
+
+{% block main %}
+    <h4>All prime numbers up to your selected value</h4>
+
+    <body>
+        <p>Spoiler Alert: Prime => has two distinct positive factors: 1 and itself</p>
+        <p>13 is prime because its factors are 1 and 13</p>
+        <label for="limit">Enter a number:</label>
+        <input autofocus type="number" id="limit">
+        <button id="show" onclick="showPrimes()">Show primes</button>
+        <p></p>
+        <p id="count"></p>
+        <p id="primeText"></p>
+        <output id="result"></output>
+        <script>
+        // Check if a number is prime
+            function isPrime(p) {
+                if (p < 2) return false;
+                for (let i = 2; i <= Math.sqrt(p); i++) {
+                    if (p % i === 0) return false;
+                }
+                return true;
+            }
+
+        // Generate list of primes up to num
+            function primeList(num) {
+                const listPrimes = [];
+                for (let i = 2; i <= num; i++) {
+                    if (isPrime(i)) listPrimes.push(i);
+                }
+                return listPrimes;
+            }
+
+            const input = document.getElementById("limit");
+            const result = document.getElementById("result");
+            const count = document.getElementById("count");
+            const button = document.getElementById("show");
+
+            button.addEventListener("click", showPrimes);
+            input.addEventListener("keydown", (event) => {
+                if (event.key === "Enter")
+                    showPrimes();
+            });
+
+        // Display primes in the <output>
+            function showPrimes() {
+                const num = parseInt(document.getElementById("limit").value);
+                const resultEl = document.getElementById("result");
+                const textEl = document.getElementById("primeText");
+                if (Number.isNaN(num)) {
+                    textEl.textContent = "Please enter a positive number.";
+                    count.textContent = "";
+                    resultEl.textContent = "";
+                    return;
+                }
+                const primes = primeList(num);
+                let sum = 0;
+                for (let n of primes) {
+                    sum += n;
+                }
+                resultEl.value = primes.join(", ");
+
+                if (num < 0) {
+                // negative case
+                    resultEl.value = "";
+                    count.textContent = "Mathematically, a negative input cannot be prime.";
+                    textEl.textContent = "Please enter a positive number.";
+                    return;
+                } else if (num === 0) {
+                //  zero case
+                    resultEl.value = "";
+                    count.textContent = "Mathematically, a zero input cannot be prime.";
+                    textEl.textContent = "Please enter a positive number.";
+                    return;
+                } else if (primes.length > 1) {
+                    count.textContent = `There are ${primes.length} prime numbers up to ${num} and its sum is ${sum}.`;
+                    textEl.textContent = `Prime numbers up to ${num}: `;
+                } else if (primes.length === 1) {
+                    count.textContent = `There is ${primes.length} prime numbers up to ${num}.`;
+                    textEl.textContent = `Prime numbers up to ${num}: `;
+                } else {
+                    count.textContent = `No prime numbers found up to ${num}: `;
+                    textEl.textContent = "";
+                }
+            }
+        </script>
+    </body>
+{% endblock %}

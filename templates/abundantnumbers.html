@@ -1,0 +1,83 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Abundant Numbers
+{% endblock %}
+
+{% block main %}
+    <h4>All abundant numbers up to your selected value</h4>
+
+    <body>
+        <p>Spoiler Alert: Abundant => sum of all proper divisors greater than the number itself</p>
+        <p>12 is abundant because the sum of its proper divisors: (1, 2, 3, 4, 6) is 16 </p>
+        <p>and that it is greater than 12</p>
+        <label for="limit">Enter a number:</label>
+        <input autofocus type="number" id="limit">
+        <button id="show" onclick="showAbundants()">Show abundants</button>
+        <p></p>
+        <p id="count"></p>
+        <p id="abundantText"></p>
+        <output id="result"></output>
+        <script>
+        // Check if a number is abundant
+            function isAbundant(p) {
+                let sum = 1;
+                for (let i = 2; i <= Math.sqrt(p); i++) {
+                    if (p % i === 0) {
+                        sum += i;
+                        if (i !== p / i)
+                            sum += p / i;
+                    }
+                }
+                return sum > p;
+            }
+
+        // Generate list of abundant up to num
+            function abundantList(a) {
+                const listAbundant = [];
+                for (let i = 1; i <= a; i++) {
+                    if (isAbundant(i)) listAbundant.push(i);
+                }
+                return listAbundant;
+            }
+
+            const input = document.getElementById("limit");
+            const result = document.getElementById("result");
+            const count = document.getElementById("count");
+            const button = document.getElementById("show");
+
+            button.addEventListener("click", showAbundants);
+
+            input.addEventListener("keydown", (event) => {
+                if (event.key === "Enter")
+                    showAbundants();
+            });
+
+        // Display abundants in the <output>
+            function showAbundants() {
+                const num = parseInt(document.getElementById("limit").value) || 0;
+                const abundants = abundantList(num);
+                let sum = 0;
+                for (let a of abundants) {
+                    sum += a;
+                }
+                const resultEL = document.getElementById("result");
+                const textEl = document.getElementById("abundantText");
+                if (Number.isNaN(num) || num <= 0) {
+                    textEl.textContent = "Please enter positive number.";
+                    resultEl.textContent = "";
+                    return;
+                }
+
+                resultEL.value = abundants.join(", ");
+                if (abundants.length > 0) {
+                    count.textContent = `There are ${abundants.length} abundant numbers up to ${num} and its sum is ${sum}.`;
+                    textEl.textContent = `Abundant numbers up to ${num}: `;
+                } else {
+                    count.textContent = `There is ${abundants.length} abundant number up to ${num}.`;
+                    textEl.textContent = "No abundant numbers found.";
+                };
+            };
+        </script>
+    </body>
+{% endblock %}
