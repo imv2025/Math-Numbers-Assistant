@@ -86,7 +86,7 @@ I had to clarify which skills I already had and which I needed to accomplish my 
 
 ## 🎥 Demo Video
 3‑minute walkthrough showing the main features of Math&Numbers app running via `flask run` and browser demo.
-👉 [YouTube Demo Video](https://youtu.be/your-video-id)
+👉 [YouTube Demo Video]([(https://youtu.be/xuWB_Oc7gKs)])
 
 ## ⚙️ Installation
 To run the app, clone the repository, create a virtual environment, install requirements, and run flask.
