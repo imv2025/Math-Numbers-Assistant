@@ -2,7 +2,11 @@
 Learning Platform
 
 ## 🎥 Demo Video
-Watch the demo here: [CS50 Final Project Demo](https://youtu.be/xuWB_Oc7gKs)
+Watch the full demo here: [CS50 Final Project Demo](https://youtu.be/xuWB_Oc7gKs)
+
+## 🎥 Demo Video
+3‑minute walkthrough showing the main features of Math&Numbers app running via `flask run` and browser demo.
+👉 [Video3min CS50 Math&Numbers Assistant](https://youtu.be/ryttGtnAno0)
 
 ## 📜 License / Credits
 This project was developed as part of CS50’s Final Project.
@@ -84,10 +88,6 @@ I had to clarify which skills I already had and which I needed to accomplish my 
 - Implement a concept dictionary via GPT.
 - Propose correlations between chosen numbers.
 
-## 🎥 Demo Video
-3‑minute walkthrough showing the main features of Math&Numbers app running via `flask run` and browser demo.
-👉 [YouTube Demo Video]([(https://youtu.be/xuWB_Oc7gKs)])
-
 ## ⚙️ Installation
 To run the app, clone the repository, create a virtual environment, install requirements, and run flask.
 This ensures reproducibility and allows others to test the project exactly as I developed it.
@@ -141,6 +141,7 @@ Your Requirements.txt should contain:
 **static/** → styles.css
 **templates/** → 12 HTML templates
 ![alt text](image.png)
+
 **layout.html** → abstraction html format to simplify the web maintenance
 
 🔐 Authentication
